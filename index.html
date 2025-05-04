@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Tableau de bord des stands</title>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .carte-container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .carte {
+      width: 100%;
+      display: block;
+    }
+    .stand {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+    .feu-vert { background-color: #4CAF50; }
+    .feu-orange { background-color: #FFC107; }
+    .feu-rouge { background-color: #F44336; }
+    .stand-label {
+      position: absolute;
+      top: 35px;
+      left: -10px;
+      font-size: 12px;
+      color: #fff;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">Tableau de bord - État des stands</h2>
+  <div class="carte-container">
+    <img src="Compo5.jpg" alt="Carte du parc" class="carte">
+    <div id="stands"></div>
+  </div>
+
+  <p style="text-align:center; margin-top:20px;">Mise à jour en direct depuis Google Sheets</p>
+
+  <script>
+    const STAND_POSITIONS = {
+      "Structure élémentaire": { top: 180, left: 550 },
+      "Structure maternelle 1": { top: 210, left: 140 },
+	  "Bac à sable": { top: 230, left: 100 },
+      "Structure maternelle 2": { top: 280, left: 150 },
+      "Escalade": { top: 50, left: 450 },
+      "Tatouages": { top: 150, left: 480 },
+      "Chamboule-tout": { top: 50, left: 500 },
+      "Roue de la fortune": { top: 70, left: 200 },
+      "Parcours sensoriel": { top: 80, left: 350 },
+      "Pêche aux canards": { top: 120, left: 300 },
+      "Tirs au buts": { top: 150, left: 650 },
+      "Dessin": { top: 280, left: 430 }
+    };
+
+    const FEU_CLASSES = {
+      "Vert": "feu-vert",
+      "Orange": "feu-orange",
+      "Rouge": "feu-rouge"
+    };
+
+    const publicSheetURL = 'https://corsproxy.io/?https://docs.google.com/spreadsheets/d/e/2PACX-1vTMhw5VPgrwaSvo-avk0V4XxI_4Pc8dAwHZ5tivQBSFhF_ii6iPjocM61fQIGkanvrgEYgTf5n1NZl0/pub?output=csv';
+
+    Papa.parse(publicSheetURL, {
+      download: true,
+      header: true,
+      complete: function(results) {
+        const data = results.data;
+        const container = document.getElementById("stands");
+
+        data.forEach(stand => {
+          const pos = STAND_POSITIONS[stand["Nom du stand"]];
+          const feu = stand["État"];
+
+          if (pos && FEU_CLASSES[feu]) {
+            const div = document.createElement("div");
+            div.className = `stand ${FEU_CLASSES[feu]}`;
+            div.style.top = pos.top + 'px';
+            div.style.left = pos.left + 'px';
+
+            const label = document.createElement("div");
+            label.className = "stand-label";
+            label.textContent = stand["Nom du stand"];
+
+            div.appendChild(label);
+            container.appendChild(div);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
