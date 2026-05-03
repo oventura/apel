@@ -297,7 +297,7 @@
     <div class="relative z-10 text-center px-6 max-w-5xl mx-auto pt-16">
      <p id="hero-subtitle" class="font-script text-2xl md:text-4xl mb-4 reveal" style="color: var(--orange);">Bienvenue dans</p>
      <h1 id="hero-title" class="font-display text-hero mb-6 reveal reveal-delay-1" style="color: var(--navy); text-shadow: 4px 4px 0 rgba(232, 127, 166, 0.3);">La Kermesse</h1>
-     <div class="flex flex-wrap justify-center gap-3 mb-8 reveal reveal-delay-2"><span class="px-4 py-2 rounded-full font-bold text-sm md:text-base" style="background: var(--mint); color: white;">🎨 Arts</span> <span class="px-4 py-2 rounded-full font-bold text-sm md:text-base" style="background: var(--orange); color: white;">🎵 Musique</span> <span class="px-4 py-2 rounded-full font-bold text-sm md:text-base" style="background: var(--pink); color: white;">🎭 Théâtre</span> <span class="px-4 py-2 rounded-full font-bold text-sm md:text-base" style="background: var(--purple); color: white;">📚 Lecture</span>
+     <div class="flex flex-wrap justify-center gap-3 mb-8 reveal reveal-delay-2"><span class="px-4 py-2 rounded-full font-bold text-sm md:text-base" style="background: var(--mint); color: white;">🎨 Arts</span> <span class="px-4 py-2 rounded-full font-bold text-sm md:text-base" style="background: var(--orange); color: white;">🎵 Musique</span> <span class="px-4 py-2 rounded-full font-bold text-sm md:text-base" style="background: var(--pink); color: white;">🎭 Spectacles</span> <span class="px-4 py-2 rounded-full font-bold text-sm md:text-base" style="background: var(--purple); color: white;">📚 Stands</span>
      </div>
      <p id="hero-date" class="text-lg md:text-2xl font-bold mb-2 reveal reveal-delay-3" style="color: var(--teal);">Dimanche 28 Juin 2026</p>
      <p id="hero-school" class="text-base md:text-lg reveal reveal-delay-3" style="color: var(--navy);">École Notre Dame</p>
@@ -312,15 +312,67 @@
     <div class="max-w-6xl mx-auto w-full">
      <div class="text-center mb-12">
       <p class="font-script text-2xl md:text-3xl mb-2 reveal" style="color: var(--pink);">Explorez</p>
-      <h2 class="font-display text-section-title reveal reveal-delay-1" style="color: var(--navy);">Les Maisons de la Cité</h2>
-      <p class="mt-4 text-base md:text-lg max-w-2xl mx-auto reveal reveal-delay-2" style="color: var(--teal);">Survolez chaque bâtiment pour découvrir l'art qui s'y cache ✨</p>
+      <h2 class="font-display text-section-title reveal reveal-delay-1" style="color: var(--navy);">Les espace de la Cité</h2>
+      <p class="mt-4 text-base md:text-lg max-w-2xl mx-auto reveal reveal-delay-2" style="color: var(--teal);">Survolez chaque bâtiment pour découvrir la kermesse ✨</p>
      </div><!-- City grid -->
      <div class="grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-6 max-w-5xl mx-auto reveal reveal-delay-3" id="city-grid"><!-- Buildings populated by JS -->
      </div>
     </div>
     <div class="grass"></div>
-   </section><!-- ART SECTIONS (populated by JS) -->
-   <div id="art-sections"></div><!-- FOOTER SECTION -->
+   </section>
+   
+   
+   <section class="snap-section flex items-center justify-center relative py-16 px-6"  id="section-art-infos" style="background: linear-gradient(135deg, rgb(242, 140, 74) 0%, rgb(222, 120, 54) 100%); color: rgb(253, 246, 232);">
+    <div class="max-w-6xl mx-auto w-full" >
+     <div class="text-center mb-12">
+      <p class="font-script text-2xl md:text-3xl mb-2 reveal" style="color: #FDF6E8;">Rendez-vous</p>
+      <h2 class="font-display text-section-title reveal reveal-delay-1" style="color: #FDF6E8;">Où ? Et Quand ?</h2>
+     </div>
+     <div class="grid md:grid-cols-2 gap-8 reveal reveal-delay-2" class="order-1">
+	 <!-- Where card -->
+      <div class="bg-white rounded-3xl p-8 md:p-10 shadow-lg hover:shadow-xl transition-shadow">
+       <div class="flex items-center gap-3 mb-6"><span class="text-4xl">🗺️</span>
+        <h3 class="font-display text-2xl" style="color: var(--navy);">Où ?</h3>
+       </div>
+       <p class="text-base md:text-lg mb-4" style="color: var(--navy);">La Kermesse aura lieu à l'école Notre Dame de Cesson-Sévigné.</p>
+       <p id="where-address" class="font-bold text-lg mb-6" style="color: var(--teal);">45 Bis Rue des Lauriers<br>
+        35510 Cesson-Sévigné</p><button class="btn-primary w-full text-center" onclick="showToast('📍 Itinéraire ouvert'); window.open('https://maps.google.com/?q=45+Bis+Rue+des+Lauriers+Cesson-Sévigné', '_blank', 'noopener,noreferrer');">Voir l'itinéraire →</button>
+      </div>
+	  <!-- When card -->
+      <div class="bg-white rounded-3xl p-8 md:p-10 shadow-lg hover:shadow-xl transition-shadow">
+       <div class="flex items-center gap-3 mb-6"><span class="text-4xl">📅</span>
+        <h3 class="font-display text-2xl" style="color: var(--navy);">Quand ?</h3>
+       </div>
+       <p id="when-date" class="font-bold text-xl mb-4" style="color: var(--navy);">Le dimanche 29 juin 2025</p>
+       <p id="when-times" class="text-base md:text-lg mb-6" style="color: var(--navy);">À partir de 12h jusqu'à 18h</p>
+       <div class="p-4 rounded-xl" style="background: rgba(127, 196, 181, 0.1); border-left: 4px solid var(--mint);">
+        <p class="text-sm font-bold" style="color: var(--navy);">💒 Messe à 11h</p>
+        <p class="text-sm opacity-80" style="color: var(--navy);" >Église Saint Martin</p>
+       </div>
+      </div>
+     </div>
+	 <!-- Stats -->
+	 <div class="mt-8 flex gap-6 reveal reveal-delay-3 active"  class="order-2">
+	  <div>
+		<p class="font-display text-3xl md:text-4xl" style="color: #FDF6E8;">#01</p>
+		<p class="text-sm opacity-80">Section</p>
+	  </div>
+	  <div class="w-px opacity-30" style="background: #FDF6E8;"></div>
+	  <div>
+		<p class="font-display text-3xl md:text-4xl" style="color: #FDF6E8;">🎨</p>
+		<p class="text-sm opacity-80">Univers</p>
+	  </div>
+	 </div>
+	 <!-- Section number indicator -->
+	 <div class="absolute bottom-6 left-6 md:bottom-8 md:left-8 font-display text-6xl md:text-8xl opacity-10" class="order-3" style="color: #FDF6E8;">
+	  01
+	 </div>
+    </section>
+   
+   <!-- ART SECTIONS (populated by JS) -->
+   <div id="art-sections"></div>
+   
+   <!-- FOOTER SECTION -->
    <section class="snap-section flex flex-col items-center justify-center relative py-16 px-6" style="background: linear-gradient(180deg, var(--navy) 0%, #1a3556 100%); color: var(--cream);" id="section-footer"><!-- Decorative stars -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
      <div class="absolute top-10 left-10 text-3xl animate-pulse">
@@ -387,104 +439,121 @@
   <script>
   // Art sections data
   const artSections = [
-    {
-      id: 'arts-visuels',
-      name: 'Arts Visuels',
-      subtitle: 'Peinture & Dessin',
-      color: '#F28C4A',
-      textColor: '#FDF6E8',
-      icon: 'palette',
-      emoji: '🎨',
-      description: 'Laissez parler votre créativité avec les pinceaux, crayons et pastels de nos petits artistes.',
-      activity: 'Atelier peinture géante'
-    },
+    //{
+    //  id: 'arts-visuels',
+    //  name: 'Billetterie et Carte Pass',
+    //  subtitle: 'Manger et profiter',
+    //  color: '#F28C4A',
+    //  textColor: '#FDF6E8',
+    //  icon: 'palette',
+    //  emoji: '🎨',
+    //  description: 'Pour le bon déroulement de cette journée festive et afin d’en faciliter l’organisation, nous vous proposons la vente de menus et de cartes à points "Cartes Pass" valables pour les activités, boissons et goûters. Votre enveloppe nominative de précommande sera disponible au retrait vendredi 27 juin entre 16h30 et 19h à l\'école.',
+    //  activity: 'Commander mes cartes pass',
+	//  url : 'tests.url',
+	//  i: 2
+    //},
     {
       id: 'musique',
-      name: 'Musique',
-      subtitle: 'Mélodies & Rythmes',
+      name: 'Billetterie et Carte Pass',
+      subtitle: 'S\'amuser, manger et boire',
       color: '#E87FA6',
       textColor: '#FDF6E8',
       icon: 'music',
       emoji: '🎵',
-      description: 'Concert des élèves, chorale et découverte des instruments du monde entier.',
-      activity: 'Concert en plein air'
+      description: 'Pour le bon déroulement de cette journée festive et afin d’en faciliter l’organisation, nous vous proposons la vente de menus et de cartes à points 💳 "Cartes Pass" valables pour les activités, boissons et goûters. <p class="text-sm mb-3 opacity-90 reveal reveal-delay-2 ">📅 Votre enveloppe nominative de précommande sera disponible au retrait vendredi 26 juin entre 16h30 et 19h à l\'école.</p>',
+      activity: 'Commander mes cartes pass',
+	  url : 'tests.url',
+	  i: 2
     },
     {
       id: 'cinema',
-      name: 'Cinéma',
-      subtitle: 'Grand Écran',
+      name: 'Repas',
+      subtitle: 'Pour déjeuner',
       color: '#8B6BB0',
       textColor: '#FDF6E8',
       icon: 'film',
       emoji: '🎬',
-      description: 'Projection des courts-métrages réalisés par les élèves de l\'école.',
-      activity: 'Projection des élèves'
+      description: 'La restauration est assurée par l\'équipe Apel sur place de midi à 14h.<br/> Les menus sont en précommande.<br/>Un achat sur place sera également possible,  <b>mais uniquement dans la limite des quantités disponibles</b>!<br/><p class="text-sm mb-3 opacity-90 reveal reveal-delay-2 ">📋 Menus proposés : :<br/>✓ Galette Saucisse + Frites<br/>✓ Galette Saucisse + Tomates cerises<br/>✓ Galette Saucisse de volaille + Frites<br/>✓ Galette Saucisse de volaille + Tomates cerises</p>',
+      activity: 'Commander mes repas jusqu\'au XX juin',
+	  url : 'tests.url',
+	  i:3
     },
     {
       id: 'bd',
-      name: 'Bande Dessinée',
-      subtitle: 'Bulles & Cases',
+      name: 'Buvette',
+      subtitle: 'Avec votre carte Pass',
       color: '#F4C542',
-      textColor: '#2B4C6F',
+      textColor: '#FDF6E8',
       icon: 'book-open',
       emoji: '💬',
-      description: 'Découvrez les planches de BD créées en classe et rencontrez les apprentis dessinateurs.',
-      activity: 'Atelier création de BD'
+      //description: '<p class="text-sm mb-4" style="color: var(--navy);">Avec votre carte Pass, achetez rafraîchissements et boissons. Pour tous à tous les moments ! <div class="bg-teal-50 rounded-xl p-4 text-sm" style="color: var(--navy);"><p class="text-sm mb-3 opacity-90 reveal reveal-delay-2 ">🥛 Soda</br>🧃 Jus de fruits</br>💧 Eau fraiche<br/>🍻 Bière blanche ou blonde<br/>☕ Café</p></div></p>',
+      description : '<p class="text-white/80 max-w-2xl mx-auto mb-10" style="margin-bottom:0px">Profitez de notre espace détente pour vous rafraîchir ou savourer une douceur sucrée entre deux activités.<br/>Tous les achats se font avec vos 💳 "Cartes Pass".<br/>⚠️ Note importante : <b>Pensez bien à prendre des 🥤 ecocups!</b></p><div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto p-4" style="margin-bottom:0px"><div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all " style="margin-bottom:0px"><div class="flex items-center gap-3 mb-6"><div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl" style="background: var(--mint);">🥤</div><h3 class="font-display text-xl" style="color: var(--navy);">Buvette</h3></div><div class="bg-teal-50 rounded-xl p-4 text-sm" style="color: var(--navy);"><p class="text-xs">🥛 Boissons chaudes et froides</p><p class="text-xs">🧃 Jus de fruits</p><p class="text-xs">💧 Eau</p></div></div><div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all"><div class="flex items-center gap-3 mb-6"><div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl" style="background: var(--pink);">🍰</div><h3 class="font-display text-xl" style="color: var(--navy);">Goûter</h3></div><div class="bg-pink-50 rounded-xl p-4 text-sm space-y-1" style="color: var(--navy);"><p class="text-xs">🥞 Crêpes</p><p class="text-xs">🎂 Gâteaux</p><p class="text-xs">🍿 Pop corn</p><p class="text-xs">🍭 Barbe à papa</p></div></div></div>',
+	  activity: '',
+	  i:4
     },
     {
       id: 'theatre',
-      name: 'Théâtre',
-      subtitle: 'Scène & Émotions',
+      name: 'Programme',
+      subtitle: 'Les spectacles des enfants',
       color: '#D65A5A',
       textColor: '#FDF6E8',
-      icon: 'drama',
-      emoji: '🎭',
-      description: 'Spectacles joués par les enfants et ateliers d\'improvisation pour tous.',
-      activity: 'Spectacle à 15h'
+      icon: 'sparkles',
+      emoji: '💃',
+      description: 'Chorégraphies préparées joués par les enfants ',
+      activity: '',
+	  additionalInfo : '<div class="w-1/2 max-w-2xl space-y-4"><div class="flex items-center space-x-4 border-l-4 border-white/50 pl-4"><span class="font-bold w-16">11h00</span><span class="bg-white/20 px-3 py-1 rounded">Messe (Église St Martin)</span></div><div class="flex items-center space-x-4 border-l-4 border-white/50 pl-4"><span class="font-bold w-16">12h00</span><span>Ouverture Restauration &amp; Buvette</span></div><div class="flex items-center space-x-4 border-l-4 border-white/50 pl-4"><span class="font-bold w-16">14h00</span><span class="font-bold text-yellow-300 italic uppercase">Fest noz des PS/MS</span></div><div class="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-white/20"><p class="text-xs uppercase opacity-70 col-span-2">Spectacles classes</p><div class="text-sm">14h30 - Claire (GS)</div><div class="text-sm">14h40 - Gwenaëlle (GS)</div><div class="text-sm">14h50 - CP (Béatrice/Caroline)</div><div class="text-sm font-bold text-yellow-300">15h30 - TOMBOLA</div><div class="text-sm">16h00 - CE1 (Charlène)</div><div class="text-sm">17h00 - Marie (CM2)</div></div></div>',
+	  i:5
     },
     {
       id: 'litterature',
-      name: 'Littérature',
-      subtitle: 'Mots & Histoires',
+      name: 'Stands',
+      subtitle: 'Pour s\'amuser',
       color: '#7FC4B5',
       textColor: '#FDF6E8',
       icon: 'book',
       emoji: '📚',
-      description: 'Lectures à voix haute, contes animés et coin bibliothèque pour rêveurs.',
-      activity: 'Heure du conte'
+      description: 'Retrouver le nombre de points de chaque activités',
+      activity: '',
+	  additionalInfo : '<div class="w-1/2 max-w-2xl space-y-4"><div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl"><div class="card text-center"><span class="text-3xl">🧗</span><h4 class="font-bold block mt-2">Mur Escalade</h4><span class="text-xs bg-black/20 px-2 py-1 rounded-full">5 Tampons • +7 ans</span></div><div class="card text-center"><span class="text-3xl">🏰</span><h4 class="font-bold block mt-2">Château Gonflable</h4><span class="text-xs bg-black/20 px-2 py-1 rounded-full">3 Tampons • -6 ans</span></div><div class="card text-center"><span class="text-3xl">🎯</span><h4 class="font-bold block mt-2">Chamboule-tout</h4><span class="text-xs bg-white text-[#78c0b0] px-2 py-1 rounded-full font-bold">GRATUIT</span></div><div class="card text-center"><span class="text-3xl">🦆</span><h4 class="font-bold block mt-2">Pêche aux canards</h4><span class="text-xs bg-white text-[#78c0b0] px-2 py-1 rounded-full font-bold">GRATUIT</span></div><div class="card text-center"><span class="text-3xl">🎨</span><h4 class="font-bold block mt-2">Tatouages</h4><span class="text-xs bg-black/20 px-2 py-1 rounded-full">1 Tampon</span></div><div class="card text-center"><span class="text-3xl">🎡</span><h4 class="font-bold block mt-2">Roue Fortune</h4><span class="text-xs bg-black/20 px-2 py-1 rounded-full">2 Tampons</span></div></div></div>',
+	  i:6
     },
     {
       id: 'numerique',
-      name: 'Art Numérique',
-      subtitle: 'Pixels & Code',
+      name: 'Plan',
+      subtitle: 'Se repérer',
       color: '#3B8A94',
       textColor: '#FDF6E8',
       icon: 'monitor',
       emoji: '💻',
-      description: 'Créations digitales, animations et initiation à la programmation artistique.',
-      activity: 'Atelier pixel art'
+      description: 'Pour bien comprendre où se rendre, retrouvez le plan des stands et animations du jour J. ',
+      activity: '',
+	  additionalInfo : '<img/> ',
+	  i:8
     },
     {
       id: 'danse',
-      name: 'Danse',
-      subtitle: 'Mouvements & Grâce',
+      name: 'Tombola',
+      subtitle: 'Gagner un lot',
       color: '#A8C97A',
-      textColor: '#2B4C6F',
-      icon: 'sparkles',
-      emoji: '💃',
-      description: 'Chorégraphies préparées tout au long de l\'année par nos danseurs en herbe.',
-      activity: 'Démonstrations dansées'
+      textColor: '#FDF6E8',
+      icon: 'megaphone',
+      emoji: '🎭',
+      description: '🌳 1er lot : un week-end en famille à Center Parcs d’une valeur de 500€ <br/>📷 2e lot : un shooting photo en famille d’une valeur de 240€ <br/>🎫 3e lot:  un pass activités famille d’une valeur de 150€',
+      activity: 'Les résultats',
+	  i:9
     },
     {
       id: 'sculpture',
-      name: 'Sculpture',
-      subtitle: 'Volume & Matière',
+      name: 'Les volontaires',
+      subtitle: 'Grâce à vous seulement',
       color: '#2B4C6F',
       textColor: '#FDF6E8',
       icon: 'shapes',
       emoji: '🗿',
-      description: 'Modelage, argile et créations en volume exposées dans le jardin de l\'école.',
-      activity: 'Atelier modelage'
+      description: 'Chers parents, la Kermesse de organisée par l\'APEL ne peut avoir lieu sans l\'aide de TOUS les parents.<br/>Depuis des mois, l\'équipe pense, organise, fabrique, finance... cette journée pour offrir un beau moment à vos enfants. <br/><b>⏱️ Maintenant c\'est à vous de jouer pour une demi-heure ou plus le jour J !</b>',
+      activity: 'Je rends la kermesse possible',
+	  url : 'test',
+	  i:10
     }
   ];
 
@@ -510,10 +579,47 @@
       container.appendChild(confetti);
     }
   }
+  function createCustomCity(color, textColor, name, emoji, sectionName) {
+	const grid = document.getElementById('city-grid');
+	const building = document.createElement('div');
+      building.className = 'building flex flex-col items-center';
+      building.onclick = () => {
+        document.getElementById(`${sectionName}`).scrollIntoView({ behavior: 'smooth' });
+      };
+      
+      // Random building height variations
+      const heights = ['h-32', 'h-40', 'h-36', 'h-44', 'h-32'];
+      const height = heights[1 % heights.length];
+      
+      building.innerHTML = `
+        <div class="relative">
+          <svg class="${height} w-20 md:w-24" viewBox="0 0 80 120" fill="none">
+            <!-- Roof -->
+            <polygon points="10,40 40,10 70,40" fill="${color}" />
+            <!-- Body -->
+            <rect x="15" y="40" width="50" height="70" fill="${color}" opacity="0.9"/>
+            <!-- Door -->
+            <rect x="33" y="80" width="14" height="30" fill="${textColor}" opacity="0.3" rx="2"/>
+            <!-- Windows -->
+            <rect x="22" y="55" width="12" height="12" fill="${textColor}" opacity="0.5" rx="2"/>
+            <rect x="46" y="55" width="12" height="12" fill="${textColor}" opacity="0.5" rx="2"/>
+            <!-- Chimney -->
+            <rect x="50" y="20" width="8" height="18" fill="${color}" opacity="0.7"/>
+          </svg>
+          <div class="absolute top-2 left-1/2 -translate-x-1/2 text-2xl">${emoji}</div>
+        </div>
+        <div class="building-label px-3 py-1 rounded-full text-xs md:text-sm font-bold text-white shadow-lg" style="background: ${color};">
+          ${name}
+        </div>
+      `;
+	  grid.appendChild(building);
+  }
+
 
   // Create city buildings
   function createCity() {
-    const grid = document.getElementById('city-grid');
+	createCustomCity('#F28C4A', '#FDF6E8', 'Informations générales', '🎨', 'section-art-infos');
+	const grid = document.getElementById('city-grid');
     artSections.forEach((art, index) => {
       const building = document.createElement('div');
       building.className = 'building flex flex-col items-center';
@@ -561,15 +667,22 @@
       section.dataset.index = index + 2;
       section.style.background = `linear-gradient(135deg, ${art.color} 0%, ${adjustColor(art.color, -20)} 100%)`;
       section.style.color = art.textColor;
+	  const i = art.i; 
       
       const isEven = index % 2 === 0;
+	  
+	  var isButton = 0;
+	  if (art.activity  === "")  isButton = 1;
+	  
+	  var isAdditionnalInfo = 1;
+	  if (!art.additionalInfo)  isAdditionnalInfo = 0;
       
       section.innerHTML = `
         <!-- Decorative shapes -->
         <div class="absolute top-10 ${isEven ? 'right-10' : 'left-10'} w-24 h-24 md:w-40 md:h-40 rounded-full opacity-20" style="background: ${art.textColor};"></div>
         <div class="absolute bottom-20 ${isEven ? 'left-10' : 'right-10'} w-16 h-16 md:w-24 md:h-24 opacity-10" style="background: ${art.textColor}; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;"></div>
         
-        <div class="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
+        <div class="max-w-6xl mx-auto ${isAdditionnalInfo ? 'w-1/3' : 'w-full'} grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
           
           <!-- Content side -->
           <div class="${isEven ? 'order-1' : 'md:order-2'}">
@@ -582,16 +695,16 @@
             <p class="text-lg md:text-xl mb-8 reveal reveal-delay-2 max-w-lg" style="color: ${art.textColor}; opacity: 0.95;">
               ${art.description}
             </p>
-            <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full reveal reveal-delay-3" style="background: ${art.textColor}; color: ${art.color};">
+            <div class="${isButton ? 'invisible' : 'inline-flex items-center gap-3 px-6 py-3 rounded-full reveal reveal-delay-3'} " style="background: ${art.textColor}; color: ${art.color};">
               <i data-lucide="sparkles" class="w-5 h-5"></i>
-              <span class="font-bold">${art.activity}</span>
+              <a href="${art.url}"><span class="font-bold">${art.activity}</span></a>
             </div>
             
             <!-- Stats -->
             <div class="mt-8 flex gap-6 reveal reveal-delay-3">
               <div>
-                <p class="font-display text-3xl md:text-4xl" style="color: ${art.textColor};">#${String(index + 1).padStart(2, '0')}</p>
-                <p class="text-sm opacity-80">Maison</p>
+                <p class="font-display text-3xl md:text-4xl" style="color: ${art.textColor};">#${String(i).padStart(2, '0')}</p>
+                <p class="text-sm opacity-80">Section</p>
               </div>
               <div class="w-px opacity-30" style="background: ${art.textColor};"></div>
               <div>
@@ -602,7 +715,7 @@
           </div>
           
           <!-- Icon / placeholder side -->
-          <div class="${isEven ? 'order-2' : 'md:order-1'} flex flex-col items-center gap-4">
+          <div class="${isEven ? 'order-2' : 'md:order-1'}  ${isAdditionnalInfo ? 'hidden' : 'flex flex-col items-center gap-4'}">
             <div class="float-icon relative">
               <div class="w-48 h-48 md:w-64 md:h-64 rounded-full flex items-center justify-center reveal" style="background: ${art.textColor}; opacity: 0.95;">
                 <i data-lucide="${art.icon}" class="w-24 h-24 md:w-32 md:h-32" style="color: ${art.color}; stroke-width: 1.5;"></i>
@@ -611,14 +724,20 @@
                 ${art.emoji}
               </div>
             </div>
-            
           </div>
-          
         </div>
+		
+		  <!-- Additional informations -->
+          <p id="additionalInfo${section.id}" class="${isAdditionnalInfo ? 'flex flex-col items-center gap-4' : 'invisible'}" style="${isAdditionnalInfo ? '' : 'display:none;'}">
+               ${art.additionalInfo}
+          </p>
+		  
+          
+
         
         <!-- Section number indicator -->
         <div class="absolute bottom-6 left-6 md:bottom-8 md:left-8 font-display text-6xl md:text-8xl opacity-10" style="color: ${art.textColor};">
-          ${String(index + 1).padStart(2, '0')}
+          ${String(i).padStart(2, '0')}
         </div>
       `;
       
