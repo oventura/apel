@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="fr" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kermesse Notre Dame de Cesson-Sévigné 2026</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&amp;family=Pacifico&amp;family=Fredoka:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+  :root {
+    --cream: #FDF6E8;
+    --mint: #7FC4B5;
+    --orange: #F28C4A;
+    --pink: #E87FA6;
+    --yellow: #F4C542;
+    --purple: #8B6BB0;
+    --teal: #3B8A94;
+    --navy: #2B4C6F;
+    --red: #D65A5A;
+    --sage: #A8C97A;
+  }
+  
+  html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Fredoka', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+  
+  .font-display { font-family: 'Montserrat', sans-serif; font-weight: 900; }
+  .font-script { font-family: 'Pacifico', cursive; }
+  .font-body { font-family: 'Fredoka', sans-serif; }
+  
+  .scroll-container {
+    height: 100%;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+  
+  .snap-section {
+    scroll-snap-align: start;
+    min-height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  @media (max-width: 768px) {
+    .scroll-container { scroll-snap-type: y proximity; }
+  }
+  
+  /* Confetti animation */
+  .confetti {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    opacity: 0.9;
+    animation: float 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+  }
+  
+  /* Flags */
+  .flag {
+    display: inline-block;
+    width: 28px;
+    height: 36px;
+    margin: 0 2px;
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
+    animation: sway 3s ease-in-out infinite;
+    transform-origin: top center;
+  }
+  
+  @keyframes sway {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  
+  .flag-string {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 20px;
+  }
+  
+  .flag-string::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background: var(--navy);
+    border-radius: 2px;
+  }
+  
+  /* Building hover effects */
+  .building {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .building:hover {
+    transform: translateY(-12px) scale(1.05);
+    filter: drop-shadow(0 20px 25px rgba(0,0,0,0.15));
+  }
+  
+  .building-label {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  
+  .building:hover .building-label {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  
+  /* Section reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+  
+  /* Floating animation for icons */
+  @keyframes floatIcon {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+  }
+  
+  .float-icon {
+    animation: floatIcon 4s ease-in-out infinite;
+  }
+  
+  /* Placeholder style */
+  .photo-placeholder {
+    background: rgba(255,255,255,0.15);
+    border: 3px dashed rgba(255,255,255,0.5);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+  }
+  
+  .photo-placeholder:hover {
+    background: rgba(255,255,255,0.25);
+    border-color: rgba(255,255,255,0.8);
+  }
+  
+  /* Cloud decoration */
+  .cloud {
+    position: absolute;
+    opacity: 0.4;
+    animation: drift 20s linear infinite;
+  }
+  
+  @keyframes drift {
+    from { transform: translateX(-100px); }
+    to { transform: translateX(calc(100vw + 100px)); }
+  }
+  
+  /* Progress indicator */
+  .progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(43, 76, 111, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: block;
+    margin: 8px 0;
+  }
+  
+  .progress-dot.active {
+    background: var(--navy);
+    transform: scale(1.5);
+  }
+  
+  .progress-dot:hover {
+    background: var(--navy);
+  }
+  
+  /* Button styles */
+  .btn-primary {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.2);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 rgba(0,0,0,0.2);
+  }
+  
+  .btn-primary:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+  }
+  
+  /* Scroll indicator */
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
+  
+  .scroll-indicator {
+    animation: bounce-slow 2s ease-in-out infinite;
+  }
+  
+  /* Sun rays for hero */
+  @keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  .sun-rays {
+    animation: rotate-slow 30s linear infinite;
+  }
+  
+  /* Grass decoration */
+  .grass {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to top, var(--sage) 0%, transparent 100%);
+    opacity: 0.4;
+  }
+  
+  /* Responsive text */
+  .text-hero {
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    line-height: 1;
+  }
+  
+  .text-section-title {
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    line-height: 1.1;
+  }
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full w-full"><!-- Progress Navigation -->
+  <nav class="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-50 bg-white/80 backdrop-blur-md rounded-full px-2 py-3 shadow-lg hidden sm:block" aria-label="Navigation des sections">
+   <div id="progress-nav"></div>
+  </nav>
+  <main class="scroll-container h-full w-full" id="main-scroll"><!-- HERO SECTION -->
+   <section class="snap-section flex flex-col items-center justify-center relative" style="background: linear-gradient(180deg, #FDF6E8 0%, #F4E4C1 100%);" id="section-0"><!-- Sun decoration -->
+    <div class="absolute top-10 right-10 md:top-20 md:right-32 w-32 h-32 md:w-48 md:h-48 pointer-events-none">
+     <div class="sun-rays w-full h-full relative">
+      <div class="absolute inset-0 rounded-full" style="background: radial-gradient(circle, var(--yellow) 0%, var(--orange) 100%); box-shadow: 0 0 60px var(--yellow);"></div>
+     </div>
+    </div><!-- Clouds -->
+    <svg class="cloud top-16 left-10" width="80" height="40" viewbox="0 0 80 40" style="animation-delay: 0s;"><ellipse cx="20" cy="25" rx="15" ry="12" fill="white" /> <ellipse cx="40" cy="20" rx="20" ry="15" fill="white" /> <ellipse cx="60" cy="25" rx="15" ry="12" fill="white" />
+    </svg>
+    <svg class="cloud top-32 left-0" width="100" height="50" viewbox="0 0 100 50" style="animation-delay: -10s; animation-duration: 30s;"><ellipse cx="25" cy="30" rx="18" ry="14" fill="white" /> <ellipse cx="50" cy="25" rx="22" ry="17" fill="white" /> <ellipse cx="75" cy="30" rx="18" ry="14" fill="white" />
+    </svg><!-- Flags garland -->
+    <div class="absolute top-0 left-0 right-0 flag-string px-4"><span class="flag" style="background: var(--mint); animation-delay: 0s;"></span> <span class="flag" style="background: var(--orange); animation-delay: 0.2s;"></span> <span class="flag" style="background: var(--pink); animation-delay: 0.4s;"></span> <span class="flag" style="background: var(--yellow); animation-delay: 0.6s;"></span> <span class="flag" style="background: var(--purple); animation-delay: 0.8s;"></span> <span class="flag" style="background: var(--teal); animation-delay: 1.0s;"></span> <span class="flag" style="background: var(--red); animation-delay: 1.2s;"></span> <span class="flag" style="background: var(--mint); animation-delay: 1.4s;"></span> <span class="flag" style="background: var(--orange); animation-delay: 1.6s;"></span> <span class="flag" style="background: var(--pink); animation-delay: 1.8s;"></span> <span class="flag" style="background: var(--yellow); animation-delay: 2.0s;"></span>
+    </div><!-- Confetti -->
+    <div id="confetti-container" class="absolute inset-0 pointer-events-none"></div>
+    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto pt-16">
+     <p id="hero-subtitle" class="font-script text-2xl md:text-4xl mb-4 reveal" style="color: var(--orange);">Bienvenue dans</p>
+     <h1 id="hero-title" class="font-display text-hero mb-6 reveal reveal-delay-1" style="color: var(--navy); text-shadow: 4px 4px 0 rgba(232, 127, 166, 0.3);">La Kermesse</h1>
+     <div class="flex flex-wrap justify-center gap-3 mb-8 reveal reveal-delay-2"><span class="px-4 py-2 rounded-full font-bold text-sm md:text-base" style="background: var(--mint); color: white;">🎨 Arts</span> <span class="px-4 py-2 rounded-full font-bold text-sm md:text-base" style="background: var(--orange); color: white;">🎵 Musique</span> <span class="px-4 py-2 rounded-full font-bold text-sm md:text-base" style="background: var(--pink); color: white;">🎭 Théâtre</span> <span class="px-4 py-2 rounded-full font-bold text-sm md:text-base" style="background: var(--purple); color: white;">📚 Lecture</span>
+     </div>
+     <p id="hero-date" class="text-lg md:text-2xl font-bold mb-2 reveal reveal-delay-3" style="color: var(--teal);">Dimanche 28 Juin 2026</p>
+     <p id="hero-school" class="text-base md:text-lg reveal reveal-delay-3" style="color: var(--navy);">École Notre Dame</p>
+     <div class="mt-10 reveal reveal-delay-3"><button class="btn-primary" onclick="document.getElementById('section-1').scrollIntoView({behavior: 'smooth'})"> Explorer la cité des arts → </button>
+     </div>
+    </div><!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator"><i data-lucide="chevron-down" class="w-8 h-8" style="color: var(--navy);"></i>
+    </div>
+    <div class="grass"></div>
+   </section><!-- CITY OVERVIEW SECTION -->
+   <section class="snap-section flex flex-col items-center justify-center relative py-16 px-6" style="background: linear-gradient(180deg, #F4E4C1 0%, #FDF6E8 100%);" id="section-1">
+    <div class="max-w-6xl mx-auto w-full">
+     <div class="text-center mb-12">
+      <p class="font-script text-2xl md:text-3xl mb-2 reveal" style="color: var(--pink);">Explorez</p>
+      <h2 class="font-display text-section-title reveal reveal-delay-1" style="color: var(--navy);">Les Maisons de la Cité</h2>
+      <p class="mt-4 text-base md:text-lg max-w-2xl mx-auto reveal reveal-delay-2" style="color: var(--teal);">Survolez chaque bâtiment pour découvrir l'art qui s'y cache ✨</p>
+     </div><!-- City grid -->
+     <div class="grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-6 max-w-5xl mx-auto reveal reveal-delay-3" id="city-grid"><!-- Buildings populated by JS -->
+     </div>
+    </div>
+    <div class="grass"></div>
+   </section><!-- ART SECTIONS (populated by JS) -->
+   <div id="art-sections"></div><!-- FOOTER SECTION -->
+   <section class="snap-section flex flex-col items-center justify-center relative py-16 px-6" style="background: linear-gradient(180deg, var(--navy) 0%, #1a3556 100%); color: var(--cream);" id="section-footer"><!-- Decorative stars -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+     <div class="absolute top-10 left-10 text-3xl animate-pulse">
+      ✨
+     </div>
+     <div class="absolute top-20 right-20 text-2xl animate-pulse" style="animation-delay: 0.5s;">
+      ⭐
+     </div>
+     <div class="absolute bottom-40 left-20 text-2xl animate-pulse" style="animation-delay: 1s;">
+      ✨
+     </div>
+     <div class="absolute top-40 left-1/3 text-xl animate-pulse" style="animation-delay: 1.5s;">
+      ⭐
+     </div>
+     <div class="absolute bottom-20 right-10 text-3xl animate-pulse" style="animation-delay: 2s;">
+      ✨
+     </div>
+    </div>
+    <div class="max-w-5xl mx-auto w-full text-center relative z-10">
+     <div class="mb-10 reveal">
+      <p class="font-script text-3xl md:text-5xl mb-4" style="color: var(--yellow);">Créez, jouez,</p>
+      <p id="footer-slogan" class="font-display text-4xl md:text-6xl" style="color: var(--cream);">imaginez... ensemble !</p>
+     </div>
+     <div class="grid md:grid-cols-3 gap-6 md:gap-8 mb-10">
+      <div class="bg-white/10 backdrop-blur rounded-2xl p-6 reveal reveal-delay-1">
+       <div class="flex justify-center mb-3">
+        <div class="w-14 h-14 rounded-full flex items-center justify-center" style="background: var(--orange);"><i data-lucide="calendar" class="w-7 h-7 text-white"></i>
+        </div>
+       </div>
+       <h3 class="font-display text-lg mb-2" style="color: var(--yellow);">DATE</h3>
+       <p id="footer-date" class="font-bold text-lg">Dimanche 28 Juin 2026</p>
+       <p class="text-sm opacity-80">de 12h à 18h</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur rounded-2xl p-6 reveal reveal-delay-2">
+       <div class="flex justify-center mb-3">
+        <div class="w-14 h-14 rounded-full flex items-center justify-center" style="background: var(--pink);"><i data-lucide="map-pin" class="w-7 h-7 text-white"></i>
+        </div>
+       </div>
+       <h3 class="font-display text-lg mb-2" style="color: var(--yellow);">LIEU</h3>
+       <p id="footer-location" class="font-bold text-lg">École Notre Dame de Cesson-Sévigné</p>
+       <p class="text-sm opacity-80">45 Bis Rue des Lauriers, 35510 Cesson-Sévigné</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur rounded-2xl p-6 reveal reveal-delay-3">
+       <div class="flex justify-center mb-3">
+        <div class="w-14 h-14 rounded-full flex items-center justify-center" style="background: var(--mint);"><i data-lucide="ticket" class="w-7 h-7 text-white"></i>
+        </div>
+       </div>
+       <h3 class="font-display text-lg mb-2" style="color: var(--yellow);">ENTRÉE</h3>
+       <p class="font-bold text-lg">Gratuite</p>
+       <p class="text-sm opacity-80">Restauration &amp; buvette sur place</p>
+      </div>
+     </div><!-- Contact icons -->
+     <div class="flex justify-center gap-4 mb-8 reveal"><a href="#" onclick="event.preventDefault(); showToast('📞 Téléphone copié !')" class="w-12 h-12 rounded-full flex items-center justify-center transition-transform hover:scale-110" style="background: var(--orange);" aria-label="Téléphone"> <i data-lucide="phone" class="w-5 h-5 text-white"></i> </a> <a href="#" onclick="event.preventDefault(); showToast('✉️ Email copié !')" class="w-12 h-12 rounded-full flex items-center justify-center transition-transform hover:scale-110" style="background: var(--pink);" aria-label="Email"> <i data-lucide="mail" class="w-5 h-5 text-white"></i> </a> <a href="#" onclick="event.preventDefault(); showToast('📍 Itinéraire')" class="w-12 h-12 rounded-full flex items-center justify-center transition-transform hover:scale-110" style="background: var(--mint);" aria-label="Localisation"> <i data-lucide="map" class="w-5 h-5 text-white"></i> </a> <a href="#" onclick="event.preventDefault(); showToast('📷 Suivez-nous !')" class="w-12 h-12 rounded-full flex items-center justify-center transition-transform hover:scale-110" style="background: var(--yellow);" aria-label="Instagram"> <i data-lucide="instagram" class="w-5 h-5 text-white"></i> </a>
+     </div>
+     <div class="pt-6 border-t border-white/20">
+      <p class="text-sm opacity-70">© 2026 <span id="footer-school">École Notre Dame</span> · Kermesse annuelle</p>
+     </div>
+    </div>
+   </section>
+  </main><!-- Toast -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white text-gray-900 px-6 py-3 rounded-full shadow-2xl font-bold opacity-0 pointer-events-none transition-all duration-300 z-[100]">
+   Message
+  </div>
+  <script>
+  // Art sections data
+  const artSections = [
+    {
+      id: 'arts-visuels',
+      name: 'Arts Visuels',
+      subtitle: 'Peinture & Dessin',
+      color: '#F28C4A',
+      textColor: '#FDF6E8',
+      icon: 'palette',
+      emoji: '🎨',
+      description: 'Laissez parler votre créativité avec les pinceaux, crayons et pastels de nos petits artistes.',
+      activity: 'Atelier peinture géante'
+    },
+    {
+      id: 'musique',
+      name: 'Musique',
+      subtitle: 'Mélodies & Rythmes',
+      color: '#E87FA6',
+      textColor: '#FDF6E8',
+      icon: 'music',
+      emoji: '🎵',
+      description: 'Concert des élèves, chorale et découverte des instruments du monde entier.',
+      activity: 'Concert en plein air'
+    },
+    {
+      id: 'cinema',
+      name: 'Cinéma',
+      subtitle: 'Grand Écran',
+      color: '#8B6BB0',
+      textColor: '#FDF6E8',
+      icon: 'film',
+      emoji: '🎬',
+      description: 'Projection des courts-métrages réalisés par les élèves de l\'école.',
+      activity: 'Projection des élèves'
+    },
+    {
+      id: 'bd',
+      name: 'Bande Dessinée',
+      subtitle: 'Bulles & Cases',
+      color: '#F4C542',
+      textColor: '#2B4C6F',
+      icon: 'book-open',
+      emoji: '💬',
+      description: 'Découvrez les planches de BD créées en classe et rencontrez les apprentis dessinateurs.',
+      activity: 'Atelier création de BD'
+    },
+    {
+      id: 'theatre',
+      name: 'Théâtre',
+      subtitle: 'Scène & Émotions',
+      color: '#D65A5A',
+      textColor: '#FDF6E8',
+      icon: 'drama',
+      emoji: '🎭',
+      description: 'Spectacles joués par les enfants et ateliers d\'improvisation pour tous.',
+      activity: 'Spectacle à 15h'
+    },
+    {
+      id: 'litterature',
+      name: 'Littérature',
+      subtitle: 'Mots & Histoires',
+      color: '#7FC4B5',
+      textColor: '#FDF6E8',
+      icon: 'book',
+      emoji: '📚',
+      description: 'Lectures à voix haute, contes animés et coin bibliothèque pour rêveurs.',
+      activity: 'Heure du conte'
+    },
+    {
+      id: 'numerique',
+      name: 'Art Numérique',
+      subtitle: 'Pixels & Code',
+      color: '#3B8A94',
+      textColor: '#FDF6E8',
+      icon: 'monitor',
+      emoji: '💻',
+      description: 'Créations digitales, animations et initiation à la programmation artistique.',
+      activity: 'Atelier pixel art'
+    },
+    {
+      id: 'danse',
+      name: 'Danse',
+      subtitle: 'Mouvements & Grâce',
+      color: '#A8C97A',
+      textColor: '#2B4C6F',
+      icon: 'sparkles',
+      emoji: '💃',
+      description: 'Chorégraphies préparées tout au long de l\'année par nos danseurs en herbe.',
+      activity: 'Démonstrations dansées'
+    },
+    {
+      id: 'sculpture',
+      name: 'Sculpture',
+      subtitle: 'Volume & Matière',
+      color: '#2B4C6F',
+      textColor: '#FDF6E8',
+      icon: 'shapes',
+      emoji: '🗿',
+      description: 'Modelage, argile et créations en volume exposées dans le jardin de l\'école.',
+      activity: 'Atelier modelage'
+    }
+  ];
+
+  // Create confetti
+  function createConfetti() {
+    const container = document.getElementById('confetti-container');
+    const colors = ['#7FC4B5', '#F28C4A', '#E87FA6', '#F4C542', '#8B6BB0', '#3B8A94', '#D65A5A'];
+    const shapes = ['', 'border-radius: 50%;', 'transform: rotate(45deg);'];
+    
+    for (let i = 0; i < 40; i++) {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const shape = shapes[Math.floor(Math.random() * shapes.length)];
+      confetti.style.cssText = `
+        left: ${Math.random() * 100}%;
+        top: ${Math.random() * 100}%;
+        background: ${color};
+        animation-delay: ${Math.random() * 6}s;
+        animation-duration: ${4 + Math.random() * 4}s;
+        ${shape}
+      `;
+      container.appendChild(confetti);
+    }
+  }
+
+  // Create city buildings
+  function createCity() {
+    const grid = document.getElementById('city-grid');
+    artSections.forEach((art, index) => {
+      const building = document.createElement('div');
+      building.className = 'building flex flex-col items-center';
+      building.onclick = () => {
+        document.getElementById(`section-art-${art.id}`).scrollIntoView({ behavior: 'smooth' });
+      };
+      
+      // Random building height variations
+      const heights = ['h-32', 'h-40', 'h-36', 'h-44', 'h-32'];
+      const height = heights[index % heights.length];
+      
+      building.innerHTML = `
+        <div class="relative">
+          <svg class="${height} w-20 md:w-24" viewBox="0 0 80 120" fill="none">
+            <!-- Roof -->
+            <polygon points="10,40 40,10 70,40" fill="${art.color}" />
+            <!-- Body -->
+            <rect x="15" y="40" width="50" height="70" fill="${art.color}" opacity="0.9"/>
+            <!-- Door -->
+            <rect x="33" y="80" width="14" height="30" fill="${art.textColor}" opacity="0.3" rx="2"/>
+            <!-- Windows -->
+            <rect x="22" y="55" width="12" height="12" fill="${art.textColor}" opacity="0.5" rx="2"/>
+            <rect x="46" y="55" width="12" height="12" fill="${art.textColor}" opacity="0.5" rx="2"/>
+            <!-- Chimney -->
+            <rect x="50" y="20" width="8" height="18" fill="${art.color}" opacity="0.7"/>
+          </svg>
+          <div class="absolute top-2 left-1/2 -translate-x-1/2 text-2xl">${art.emoji}</div>
+        </div>
+        <div class="building-label px-3 py-1 rounded-full text-xs md:text-sm font-bold text-white shadow-lg" style="background: ${art.color};">
+          ${art.name}
+        </div>
+      `;
+      
+      grid.appendChild(building);
+    });
+  }
+
+  // Create art sections
+  function createArtSections() {
+    const container = document.getElementById('art-sections');
+    artSections.forEach((art, index) => {
+      const section = document.createElement('section');
+      section.className = 'snap-section flex items-center justify-center relative py-16 px-6';
+      section.id = `section-art-${art.id}`;
+      section.dataset.index = index + 2;
+      section.style.background = `linear-gradient(135deg, ${art.color} 0%, ${adjustColor(art.color, -20)} 100%)`;
+      section.style.color = art.textColor;
+      
+      const isEven = index % 2 === 0;
+      
+      section.innerHTML = `
+        <!-- Decorative shapes -->
+        <div class="absolute top-10 ${isEven ? 'right-10' : 'left-10'} w-24 h-24 md:w-40 md:h-40 rounded-full opacity-20" style="background: ${art.textColor};"></div>
+        <div class="absolute bottom-20 ${isEven ? 'left-10' : 'right-10'} w-16 h-16 md:w-24 md:h-24 opacity-10" style="background: ${art.textColor}; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;"></div>
+        
+        <div class="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
+          
+          <!-- Content side -->
+          <div class="${isEven ? 'order-1' : 'md:order-2'}">
+            <p class="font-script text-2xl md:text-4xl mb-3 reveal" style="color: ${art.textColor}; opacity: 0.8;">
+              ${art.subtitle}
+            </p>
+            <h2 class="font-display text-section-title mb-6 reveal reveal-delay-1" style="color: ${art.textColor};">
+              ${art.name}
+            </h2>
+            <p class="text-lg md:text-xl mb-8 reveal reveal-delay-2 max-w-lg" style="color: ${art.textColor}; opacity: 0.95;">
+              ${art.description}
+            </p>
+            <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full reveal reveal-delay-3" style="background: ${art.textColor}; color: ${art.color};">
+              <i data-lucide="sparkles" class="w-5 h-5"></i>
+              <span class="font-bold">${art.activity}</span>
+            </div>
+            
+            <!-- Stats -->
+            <div class="mt-8 flex gap-6 reveal reveal-delay-3">
+              <div>
+                <p class="font-display text-3xl md:text-4xl" style="color: ${art.textColor};">#${String(index + 1).padStart(2, '0')}</p>
+                <p class="text-sm opacity-80">Maison</p>
+              </div>
+              <div class="w-px opacity-30" style="background: ${art.textColor};"></div>
+              <div>
+                <p class="font-display text-3xl md:text-4xl" style="color: ${art.textColor};">${art.emoji}</p>
+                <p class="text-sm opacity-80">Univers</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Icon / placeholder side -->
+          <div class="${isEven ? 'order-2' : 'md:order-1'} flex flex-col items-center gap-4">
+            <div class="float-icon relative">
+              <div class="w-48 h-48 md:w-64 md:h-64 rounded-full flex items-center justify-center reveal" style="background: ${art.textColor}; opacity: 0.95;">
+                <i data-lucide="${art.icon}" class="w-24 h-24 md:w-32 md:h-32" style="color: ${art.color}; stroke-width: 1.5;"></i>
+              </div>
+              <div class="absolute -top-4 -right-4 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center text-4xl md:text-5xl" style="background: ${art.textColor};">
+                ${art.emoji}
+              </div>
+            </div>
+            
+          </div>
+          
+        </div>
+        
+        <!-- Section number indicator -->
+        <div class="absolute bottom-6 left-6 md:bottom-8 md:left-8 font-display text-6xl md:text-8xl opacity-10" style="color: ${art.textColor};">
+          ${String(index + 1).padStart(2, '0')}
+        </div>
+      `;
+      
+      container.appendChild(section);
+    });
+  }
+
+  // Helper: darken color
+  function adjustColor(hex, amount) {
+    const num = parseInt(hex.replace('#', ''), 16);
+    const r = Math.max(0, Math.min(255, (num >> 16) + amount));
+    const g = Math.max(0, Math.min(255, ((num >> 8) & 0x00FF) + amount));
+    const b = Math.max(0, Math.min(255, (num & 0x0000FF) + amount));
+    return '#' + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+  }
+
+  // Create progress navigation
+  function createProgressNav() {
+    const nav = document.getElementById('progress-nav');
+    const totalSections = artSections.length + 3; // hero + city + arts + footer
+    for (let i = 0; i < totalSections; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'progress-dot';
+      dot.setAttribute('aria-label', `Aller à la section ${i + 1}`);
+      dot.onclick = () => {
+        const sections = document.querySelectorAll('.snap-section');
+        if (sections[i]) sections[i].scrollIntoView({ behavior: 'smooth' });
+      };
+      if (i === 0) dot.classList.add('active');
+      nav.appendChild(dot);
+    }
+  }
+
+  // Intersection observer for reveal animations
+  function setupRevealObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.15 });
+    
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+
+  // Track active section for nav
+  function setupSectionTracker() {
+    const scrollContainer = document.getElementById('main-scroll');
+    const sections = document.querySelectorAll('.snap-section');
+    const dots = document.querySelectorAll('.progress-dot');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+          const index = Array.from(sections).indexOf(entry.target);
+          dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+          });
+        }
+      });
+    }, { threshold: [0.5], root: scrollContainer });
+    
+    sections.forEach(s => observer.observe(s));
+  }
+
+  // Toast function
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) translateY(10px)';
+    }, 2500);
+  }
+
+  // Initialize everything
+  function init() {
+    createConfetti();
+    createCity();
+    createArtSections();
+    createProgressNav();
+    
+    // Re-initialize lucide icons
+    lucide.createIcons();
+    
+    // Setup observers after DOM is ready
+    setTimeout(() => {
+      setupRevealObserver();
+      setupSectionTracker();
+    }, 100);
+  }
+
+  // Element SDK integration
+  const defaultConfig = {
+    school_name: "École Notre Dame",
+    event_title: "La Kermesse",
+    event_subtitle: "Bienvenue dans",
+    event_date: "Dimanche 28 Juin 2026",
+    event_location: "École Notre Dame",
+    footer_slogan: "imaginez... ensemble !",
+    contact_phone: "01 23 45 67 89",
+    contact_email: "contact@ecole-notredame.fr"
+  };
+
+  function onConfigChange(config) {
+    const title = config.event_title || defaultConfig.event_title;
+    const titleParts = title.split(' ');
+    // Split title nicely
+    if (titleParts.length >= 3) {
+      const half = Math.ceil(titleParts.length / 2);
+      document.getElementById('hero-title').innerHTML = 
+        titleParts.slice(0, half).join(' ') + '<br>' + titleParts.slice(half).join(' ');
+    } else {
+      document.getElementById('hero-title').textContent = title;
+    }
+    
+    document.getElementById('hero-subtitle').textContent = config.event_subtitle || defaultConfig.event_subtitle;
+    document.getElementById('hero-date').textContent = config.event_date || defaultConfig.event_date;
+    document.getElementById('hero-school').textContent = config.school_name || defaultConfig.school_name;
+    document.getElementById('footer-slogan').textContent = config.footer_slogan || defaultConfig.footer_slogan;
+    document.getElementById('footer-date').textContent = config.event_date || defaultConfig.event_date;
+    document.getElementById('footer-location').textContent = config.event_location || defaultConfig.event_location;
+    document.getElementById('footer-school').textContent = config.school_name || defaultConfig.school_name;
+  }
+
+  function mapToCapabilities(config) {
+    return {
+      recolorables: [],
+      borderables: [],
+      fontEditable: undefined,
+      fontSizeable: undefined
+    };
+  }
+
+  function mapToEditPanelValues(config) {
+    return new Map([
+      ["school_name", config.school_name || defaultConfig.school_name],
+      ["event_title", config.event_title || defaultConfig.event_title],
+      ["event_subtitle", config.event_subtitle || defaultConfig.event_subtitle],
+      ["event_date", config.event_date || defaultConfig.event_date],
+      ["event_location", config.event_location || defaultConfig.event_location],
+      ["footer_slogan", config.footer_slogan || defaultConfig.footer_slogan],
+      ["contact_phone", config.contact_phone || defaultConfig.contact_phone],
+      ["contact_email", config.contact_email || defaultConfig.contact_email]
+    ]);
+  }
+
+  // Initialize
+  init();
+  
+  if (window.elementSdk) {
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange,
+      mapToCapabilities,
+      mapToEditPanelValues
+    });
+  }
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f503876a6b9d145',t:'MTc3NzY1MzU0OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
